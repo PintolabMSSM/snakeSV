@@ -10,13 +10,16 @@ rule manta:
 	params:
 		ref = REF_BUILD
 	shell:
-		"rm -rf {OUT_FOLDER}/sv_discovery/manta/{wildcards.sample}/; "
-		"configManta.py \
+		"""
+		rm -rf {OUT_FOLDER}/sv_discovery/manta/{wildcards.sample}/;
+		configManta.py \
 			--bam {input.bam} \
 			--referenceFasta {REFERENCE_FASTA} \
-			--runDir {output.outdir}; "
-		"{output.outdir}/runWorkflow.py; "
-		"zgrep -v 'SVTYPE=BND' {output.outdir}/results/variants/diploidSV.vcf.gz > {output.vcf}; "
+			--runDir {output.outdir};
+		sed -i.bak "s/smtplib\.SMTP.*/smtplib.SMTP('localhost', timeout=2)/" {output.outdir}/runWorkflow.py;
+		{output.outdir}/runWorkflow.py;
+		zgrep -v 'SVTYPE=BND' {output.outdir}/results/variants/diploidSV.vcf.gz > {output.vcf};
+		"""
 
 rule compress_manta:
 	input:
