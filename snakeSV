@@ -46,6 +46,13 @@ then
   export PATH=$MY_PATH:$PATH
 fi
 
+# Load singularity module if we're on Minerva
+if command -v module >/dev/null 2>&1; then
+    if module avail singularity/3.6.4 2>&1 | grep -q "singularity/3.6.4"; then
+        module load singularity/3.6.4
+    fi
+fi
+
 if [ "$1" == "--test_run" ]; then
   snakeSV --configfile $(dirname $(which snakeSV))/example/tiny/config.yaml \
         --config workdir="$(dirname $(which snakeSV))/example/tiny/files/" OUT_FOLDER="${PWD}/results_snakesv" \
