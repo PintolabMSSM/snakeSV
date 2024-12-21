@@ -164,6 +164,6 @@ if (BENCHMARK):
 rule all:
 	input:
 		OUT_FOLDER + "/qc/multiqc_report.html", ## Sample QC report
-		#OUT_FOLDER + "/somalier/somalier.somalier-ancestry.html", ## Ancestry report 
+		OUT_FOLDER + "/somalier/somalier.somalier-ancestry.html", ## Ancestry report 
 		final_output
 ################################################################################################### 
