@@ -11,7 +11,7 @@ rule somalier_extract:
 		ref = REF_BUILD
 	shell:
 		"{LIB_DIR}/somalier extract -d {OUT_FOLDER}/somalier_extracted/ \
-			--sites {LIB_DIR}/somalier_sites/sites.GRCh{params.ref}.vcf.gz \
+			--sites {LIB_DIR}/somalier_sites/sites.hg{params.ref}.vcf.gz \
 			-f {REFERENCE_FASTA} {input.bam}; "
 
 rule somalier:
