@@ -43,18 +43,18 @@ echo config used is $config
 echo cluster used is $cluster
 
 bsub=("bsub -K -J $jname:{rule}:{wildcards}"
-"-P acc_ad-omics "
+"-P acc_PVI "
 "-q {cluster.queue} "
 "-n {cluster.cores} -R \"span[hosts=1] select[mem>{cluster.mem}]"
 "rusage[mem={cluster.mem}]\" -W {cluster.time} "
 "-oo clusterlog/{rule}_{wildcards}.stdout "
 "-eo clusterlog/{rule}_{wildcards}.stderr < ")
 
-./snakeSV --configfile $config -pr --local-cores 1 --use-conda \
+snakeSV --configfile $config -pr --local-cores 12 --use-conda \
   -u $cluster --cluster-sync "${bsub[*]}" \
   --keep-going \
   --rerun-incomplete \
-  --jobs 50 \
+  --jobs 250 \
   --restart-times 0 \
   --latency-wait 30 \
   $dryrun
