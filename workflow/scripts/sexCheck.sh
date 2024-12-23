@@ -18,14 +18,21 @@ DICT=$3
 runDir=$4
 
 #Set additional params
-genome_size=2897310462 #n-masked length of grch37
+#genome_size=2897310462 #n-masked length of grch37
+genome_size=3137300923 #n-masked length of hg38
 
 #Get primary alignment count in library
 total=$( sambamba view -c -F 'not secondary_alignment and not duplicate' ${bam} )
 
 #Get primary alignment count to X and Y
-X=$( sambamba view -c -F 'not secondary_alignment and not duplicate' ${bam} X )
-Y=$( sambamba view -c -F 'not secondary_alignment and not duplicate' ${bam} Y )
+if sambamba view -H "$bam" | grep -q 'SN:chrX'
+then
+   X=$( sambamba view -c -F 'not secondary_alignment and not duplicate' ${bam} chrX )
+   Y=$( sambamba view -c -F 'not secondary_alignment and not duplicate' ${bam} chrY )
+else
+   X=$( sambamba view -c -F 'not secondary_alignment and not duplicate' ${bam} X )
+   Y=$( sambamba view -c -F 'not secondary_alignment and not duplicate' ${bam} Y )
+fi
 
 #Get expected fractions
 # genome_size=$( fgrep -w "@SQ" $DICT | cut -f3 | cut -d\: -f2 | awk '{ sum+=$1 } END { print sum }' ) #dynamically calculate genome size, does not take into account n-masking
