@@ -54,7 +54,7 @@ snakeSV --configfile $config -pr --local-cores 12 --use-conda \
   -u $cluster --cluster-sync "${bsub[*]}" \
   --keep-going \
   --rerun-incomplete \
-  --jobs 250 \
+  --jobs 750 \
   --restart-times 0 \
   --latency-wait 30 \
   $dryrun
