@@ -142,6 +142,7 @@ final_output = [OUT_FOLDER + "/merged_cohort/gt_merged.vcf.gz.tbi"]
 if( "STR_TOOLS" in config ):
 	if("strling" in config["STR_TOOLS"]):
 		final_output.append(expand(OUT_FOLDER + "/str_joint_calling/{sample}/str-results/{sample}-genotype.txt", sample=participant_id))
+      final_output.append(OUT_FOLDER + "/str_joint_calling/strling_outliers/STRs.tsv")
 
 ################################################################################################### 
 ## Annotations
