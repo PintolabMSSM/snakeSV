@@ -24,8 +24,8 @@ rule somalier:
 	container:
 		"docker://brentp/somalier"
 	shell:
-		"somalier relate -o {OUT_FOLDER}/somalier/somalier {input}; "
-		"somalier ancestry --n-pcs=20 -o {OUT_FOLDER}/somalier/ \
+		"{LIB_DIR}/somalier relate -o {OUT_FOLDER}/somalier/somalier {input}; "
+		"{LIB_DIR}/somalier ancestry --n-pcs=20 -o {OUT_FOLDER}/somalier/ \
 			--labels {LIB_DIR}/somalier_sites/ancestry-labels-1kg.tsv \
 			{LIB_DIR}/somalier_sites/1kg-somalier/*.somalier ++ {input}; "
 
